@@ -8,8 +8,8 @@ from pydantic import BaseModel
 from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import ChatOpenAI
 from langchain_core.documents import Document
-from langchain.retrievers.multi_vector import MultiVectorRetriever
-from langchain.storage import InMemoryStore
+from langchain_classic.retrievers.multi_vector import MultiVectorRetriever
+from langchain_core.stores import InMemoryStore
 import uuid
 
 connection = "postgresql+psycopg://langchain:langchain@localhost:6024/langchain"
@@ -28,7 +28,7 @@ chunks = splitter.split_documents(docs)
 prompt_text = "Summarize the following document:\n\n{doc}"
 
 prompt = ChatPromptTemplate.from_template(prompt_text)
-llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo")
+llm = ChatOpenAI(temperature=0, model="gpt-4o-mini")
 summarize_chain = {
     "doc": lambda x: x.page_content} | prompt | llm | StrOutputParser()
 
@@ -81,3 +81,13 @@ print("length of sub docs:\n", len(sub_docs[0].page_content))
 retrieved_docs = retriever.invoke("chapter on philosophy")
 
 print("length of retrieved docs: ", len(retrieved_docs[0].page_content))
+    
+"""    
+C:\Users\tomasz.ziss\Documents\learning-langchain\ch2\py\k-multi-vector-retriever.py:1: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.
+  from langchain_community.document_loaders import TextLoader
+length of loaded docs:  624212
+sub docs:  Chapter V of the document discusses Plato as a reformer, covering pages 214 to 274. It begins with a recapitulation of key themes, including Plato's identification of the human with the divine and the philosophical principles akin to the Athanasian creed. The chapter explores Plato's attempts to bridge the gap between appearance and reality, the concept of Platonic love, and its evolution in Aristotle's philosophy and Dante's poetry. It also examines the relationship between religious mysticism and love, the representation of Greek thought in the _Symposium_, and provides an analysis of Plato's dialectical method. Additionally, it critiques the exaggerated importance placed on classification and highlights Plato's lasting influence on modern philosophy.
+length of sub docs:
+ 763
+length of retrieved docs:  634    
+"""

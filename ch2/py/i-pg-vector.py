@@ -65,3 +65,16 @@ db.delete({"ids": ids})
 
 print("Document deleted successfully.\n Fetched documents count:",
       len(db.get_by_ids(ids)))
+
+"""
+C:\Users\tomasz.ziss\Documents\learning-langchain\ch2\py\i-pg-vector.py:17: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.
+  from langchain_community.document_loaders import TextLoader
+[Document(id='c2935621-0565-4997-ac2e-9b4d04fb0fb6', metadata={'source': './test.txt'}, page_content='V.'), Document(id='c4bbdf92-03bb-4911-9293-f40ac38f00f6', metadata={'source': './test.txt'}, page_content='V.'), Document(id='b79ab403-4e51-4add-a8c0-17f2e30aaf44', metadata={'source': './test.txt'}, page_content='II.'), Document(id='004e221e-48dc-4451-8b60-ef35a25bfd3f', metadata={'source': './test.txt'}, page_content='II.')]
+Adding documents to the vector store
+Documents added successfully.
+ Fetched documents count: 2
+Deleting document with id 3465e75d-20f4-446d-9a53-56db168970fd
+Document deleted successfully.
+ Fetched documents count: 2
+"""
+

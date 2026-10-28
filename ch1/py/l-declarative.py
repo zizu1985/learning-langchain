@@ -14,14 +14,15 @@ model = ChatOpenAI()
 
 # combine them with the | operator
 
-chatbot = template | model
+
+
 
 # use it
 
-response = chatbot.invoke({"question": "Which model providers offer LLMs?"})
-print(response.content)
+#response = chatbot.invoke({"question": "Which model providers offer LLMs?"})
+#print(response.content)
 
 # streaming
 
 for part in chatbot.stream({"question": "Which model providers offer LLMs?"}):
-    print(part)
+    print(part.content, end="", flush=True)
